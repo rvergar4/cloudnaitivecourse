@@ -101,3 +101,92 @@ var MovieInfo_ServiceDesc = grpc.ServiceDesc{
 	Streams:  []grpc.StreamDesc{},
 	Metadata: "movieapi/movieapi.proto",
 }
+
+// SetMovieInfoClient is the client API for SetMovieInfo service.
+//
+// For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
+type SetMovieInfoClient interface {
+	//Sends
+	SetMovieInfo(ctx context.Context, in *MovieData, opts ...grpc.CallOption) (*Status, error)
+}
+
+type setMovieInfoClient struct {
+	cc grpc.ClientConnInterface
+}
+
+func NewSetMovieInfoClient(cc grpc.ClientConnInterface) SetMovieInfoClient {
+	return &setMovieInfoClient{cc}
+}
+
+func (c *setMovieInfoClient) SetMovieInfo(ctx context.Context, in *MovieData, opts ...grpc.CallOption) (*Status, error) {
+	out := new(Status)
+	err := c.cc.Invoke(ctx, "/movieapi.SetMovieInfo/SetMovieInfo", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+// SetMovieInfoServer is the server API for SetMovieInfo service.
+// All implementations must embed UnimplementedSetMovieInfoServer
+// for forward compatibility
+type SetMovieInfoServer interface {
+	//Sends
+	SetMovieInfo(context.Context, *MovieData) (*Status, error)
+	mustEmbedUnimplementedSetMovieInfoServer()
+}
+
+// UnimplementedSetMovieInfoServer must be embedded to have forward compatible implementations.
+type UnimplementedSetMovieInfoServer struct {
+}
+
+func (UnimplementedSetMovieInfoServer) SetMovieInfo(context.Context, *MovieData) (*Status, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SetMovieInfo not implemented")
+}
+func (UnimplementedSetMovieInfoServer) mustEmbedUnimplementedSetMovieInfoServer() {}
+
+// UnsafeSetMovieInfoServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to SetMovieInfoServer will
+// result in compilation errors.
+type UnsafeSetMovieInfoServer interface {
+	mustEmbedUnimplementedSetMovieInfoServer()
+}
+
+func RegisterSetMovieInfoServer(s grpc.ServiceRegistrar, srv SetMovieInfoServer) {
+	s.RegisterService(&SetMovieInfo_ServiceDesc, srv)
+}
+
+func _SetMovieInfo_SetMovieInfo_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MovieData)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(SetMovieInfoServer).SetMovieInfo(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/movieapi.SetMovieInfo/SetMovieInfo",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(SetMovieInfoServer).SetMovieInfo(ctx, req.(*MovieData))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+// SetMovieInfo_ServiceDesc is the grpc.ServiceDesc for SetMovieInfo service.
+// It's only intended for direct use with grpc.RegisterService,
+// and not to be introspected or modified (even as a copy)
+var SetMovieInfo_ServiceDesc = grpc.ServiceDesc{
+	ServiceName: "movieapi.SetMovieInfo",
+	HandlerType: (*SetMovieInfoServer)(nil),
+	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "SetMovieInfo",
+			Handler:    _SetMovieInfo_SetMovieInfo_Handler,
+		},
+	},
+	Streams:  []grpc.StreamDesc{},
+	Metadata: "movieapi/movieapi.proto",
+}
+
