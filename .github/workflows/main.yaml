@@ -1,5 +1,8 @@
 name: hello-world
 on: [push, pull_request]
+defaults:
+ run:
+  working-directory: ./lab12
 name: Test
 jobs:
 test:
@@ -16,4 +19,4 @@ test:
   - name: Checkout code
     uses: actions/checkout@v2
   - name: Test
-    run: go test ./<your package name>
+    run: go test ./microservice
