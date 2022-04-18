@@ -2,7 +2,7 @@
 package main
 
 import (
-	"cloudnaitivecourse/lab12/microservice"
+	"/home/rosa/go/cloudnaitivecourse/lab12/microservice"
 	"log"
 )
 
