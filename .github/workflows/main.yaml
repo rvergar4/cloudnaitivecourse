@@ -1,6 +1,8 @@
 name: hello-world
 on: [push, pull_request]
-name: Test
+defaults:
+ run:
+  working-directory: ./lab12
 jobs:
   test:
     strategy:
