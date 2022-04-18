@@ -1,5 +1,4 @@
-module cloudnaitivecourse
-
+module cloudnaitivecourse/lab12
 go 1.17
 
 require (
