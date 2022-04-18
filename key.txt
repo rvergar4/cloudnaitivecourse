@@ -1,4 +1,0 @@
-sudo git add <folder or file with changes>
-sudo git commit -m "something"
-sudo git push
-    
